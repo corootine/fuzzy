@@ -24,3 +24,17 @@
 
  - input -> compute -> output
  * seed -> generate the puzzle -> solved puzzle -> puzzle to solve
+
+# Requirements
+* Sudoku game where two users can work together on solving a puzzle in real-time.
+
+- Users must be able to connect to each other in order to play the game together
+- Users must have the same puzzle
+- User must select a field in order to enter a value
+- Users must be able to see each other's field selection
+- Users must be able to work on the board at the same time. They must not be able to interfere
+with each other i.e. select a field that the other play has already selected
+- Users must be able to see all changes from each other
+- Users must get notified when the game ends, so they can exit or play again
+- Users must be able to exit the game at any time
+- Users should be able to see the current status of the puzzle (correct, incorrect)
