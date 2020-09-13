@@ -1,13 +1,13 @@
-package com.corootine.fuzzy.domain.board
+package com.corootine.fuzzy.sudoku.domain.board
 
-import com.corootine.fuzzy.domain.board.SolvedSudokuPuzzle.Builder
+import com.corootine.fuzzy.sudoku.domain.board.SudokuPuzzle.Builder
 import org.slf4j.LoggerFactory
 
 /**
  * Immutable representation of a solved sudoku puzzle.
  * Use [Builder] to construct an instance of this class.
  */
-class SolvedSudokuPuzzle private constructor(
+class SudokuPuzzle private constructor(
     private val board: Array<IntArray>,
     private val cellSize: Int
 ) {
@@ -31,7 +31,7 @@ class SolvedSudokuPuzzle private constructor(
     }
 
     /**
-     * Builder for the [SolvedSudokuPuzzle].
+     * Builder for the [SudokuPuzzle].
      */
     class Builder(private val cellSize: Int) {
 
@@ -77,11 +77,11 @@ class SolvedSudokuPuzzle private constructor(
         }
 
         /**
-         * Builds the [SolvedSudokuPuzzle] from the [board].
+         * Builds the [SudokuPuzzle] from the [board].
          *
-         * @return [SolvedSudokuPuzzle]
+         * @return [SudokuPuzzle]
          */
-        fun build(): SolvedSudokuPuzzle = SolvedSudokuPuzzle(board, cellSize)
+        fun build(): SudokuPuzzle = SudokuPuzzle(board, cellSize)
 
         private fun valueUniqueInCell(row: Int, column: Int, value: Int): Boolean {
             val minRow = (row / cellSize) * cellSize

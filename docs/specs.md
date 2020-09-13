@@ -1,0 +1,26 @@
+    _0 1 2_____3 4 5____6 7 8__
+ 0 |        |    4   |        |
+ 1 |        |        |        |
+ 2 |        |        |        |
+   |--------|--------|--------|
+ 3 |        |    4   |        |
+ 4 |        |        |        |
+ 5 |        |        |        |
+   |--------|--------|--------|
+ 6 |        |        |        |
+ 7 |        |        |        |
+ 8 |        |        |        |
+    --------------------------
+
+ - setting a duplicate value should fail -> fail early
+ - conflict resolution:
+   1. try a different number
+   2. if not possible, backtrack until we find a compatible number
+
+ - get board for visualization
+ - update board in attempts to solve it
+ - notify when an attempt is right or wrong
+ - notify when a sudoku puzzle is complete
+
+ - input -> compute -> output
+ * seed -> generate the puzzle -> solved puzzle -> puzzle to solve

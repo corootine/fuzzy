@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.ui
+package com.corootine.fuzzy.sudoku.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

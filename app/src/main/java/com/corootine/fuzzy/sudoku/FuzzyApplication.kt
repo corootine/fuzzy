@@ -1,4 +1,4 @@
-package com.corootine
+package com.corootine.fuzzy.sudoku
 
 import android.app.Application
 
