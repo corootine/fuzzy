@@ -11,16 +11,13 @@
 - Users must get notified when the game ends, so they can exit or play again.
 - Users must be able to exit the game at any time.
 
-## Connect use case
-- The user can connect to another user in order to play the game together.
-- The user can also receive a connection request from another user.
-- Both users must work with the same puzzle once connection has been established.
+# Use Cases
+## Device Binding
+- Device binding is initiated every time user wants to start a new game.
+- App sends unique app info to the backend.
+- Backend generates a temporary unique 6 digit app id used during the gaming session.
 
-
-
-
-
-# Specs
-- When the app starts, it will first establish a secure connection with the server and exchange required info with the application.
-- The user will be shown a simple screen where they will enter the app id of another user in order to play.
-  The app id is present on the login screen.
+- What if the app crashes during the game? - User has no way to continue the previous game. The other user will be notified and the game will end for both.
+- What if connection breaks during the game?
+  1. Broken by the user - Game ends for both users.
+  2. Broken due to technical reasons e.g bad internet connection - Attempt to restore the connection. If not possible, game ends for both users.

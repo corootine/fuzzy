@@ -1,0 +1,13 @@
+@startuml
+title Device Binding
+
+actor User
+
+User->App: start
+App->Server: register()
+Server->Server: generateUniqueAppId(): appId
+Server->Server: storeAppId(appId)
+Server->App: appId: String
+App->User: showAppId(appId: String)
+
+@enduml
