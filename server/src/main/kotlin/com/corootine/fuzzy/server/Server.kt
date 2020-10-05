@@ -42,5 +42,5 @@ fun Application.module() {
 }
 
 fun main() {
-    embeddedServer(Jetty, 8080, module = Application::module).start()
+    embeddedServer(Jetty, 25564, module = Application::module).start()
 }
