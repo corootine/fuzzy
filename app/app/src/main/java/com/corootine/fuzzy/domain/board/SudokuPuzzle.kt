@@ -1,6 +1,6 @@
-package com.corootine.fuzzy.sudoku.domain.board
+package com.corootine.fuzzy.domain.board
 
-import com.corootine.fuzzy.sudoku.domain.board.SudokuPuzzle.Builder
+import com.corootine.fuzzy.domain.board.SudokuPuzzle.Builder
 import org.slf4j.LoggerFactory
 
 /**

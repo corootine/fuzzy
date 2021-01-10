@@ -29,6 +29,7 @@ object Dependencies {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
         const val material = "com.google.android.material:material:1.2.1"
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-beta01"
+        const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     }
 
     object Coroutines {

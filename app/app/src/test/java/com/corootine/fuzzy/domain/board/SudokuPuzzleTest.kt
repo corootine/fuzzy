@@ -1,6 +1,5 @@
 package com.corootine.fuzzy.domain.board
 
-import com.corootine.fuzzy.sudoku.domain.board.SudokuPuzzle
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
