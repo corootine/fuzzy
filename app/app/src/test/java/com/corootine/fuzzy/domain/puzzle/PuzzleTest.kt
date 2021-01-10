@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.board
+package com.corootine.fuzzy.domain.puzzle
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -9,14 +9,14 @@ const val CELL_SIZE = 3
 const val BOARD_SIZE = CELL_SIZE * CELL_SIZE
 
 @RunWith(Enclosed::class)
-class SudokuPuzzleTest {
+class PuzzleTest {
 
     class NonParameterized {
 
         @Test(expected = IllegalArgumentException::class)
         fun `should fail to set if row is lesser than 0`() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             builder.set(-1, 0, 5)
@@ -25,7 +25,7 @@ class SudokuPuzzleTest {
         @Test(expected = IllegalArgumentException::class)
         fun `should fail to set if row is greater than board size`() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             builder.set(BOARD_SIZE + 1, 0, 5)
@@ -34,7 +34,7 @@ class SudokuPuzzleTest {
         @Test(expected = IllegalArgumentException::class)
         fun `should fail to set if column is lesser than 0`() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             builder.set(0, -1, 5)
@@ -43,7 +43,7 @@ class SudokuPuzzleTest {
         @Test(expected = IllegalArgumentException::class)
         fun `should fail to set if column is greater than board size`() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             builder.set(0, BOARD_SIZE + 1, 5)
@@ -52,7 +52,7 @@ class SudokuPuzzleTest {
         @Test(expected = IllegalArgumentException::class)
         fun `should fail to set if value is lesser than 1`() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             builder.set(1, 1, 0)
@@ -61,7 +61,7 @@ class SudokuPuzzleTest {
         @Test(expected = IllegalArgumentException::class)
         fun `should fail to set if value is greater than board size`() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             builder.set(1, 1, BOARD_SIZE + 1)
@@ -70,7 +70,7 @@ class SudokuPuzzleTest {
         @Test
         fun `should fail to set if value already appears in the row`() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             val firstSet = builder.set(0, 1, 5)
@@ -84,7 +84,7 @@ class SudokuPuzzleTest {
         @Test
         fun `should fail to set if value already appears in the column`() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             val firstSet = builder.set(1, 0, 5)
@@ -98,7 +98,7 @@ class SudokuPuzzleTest {
         @Test
         fun `should fail to set if value already appears in the cell`() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             val firstSet = builder.set(0, 4, 5)
@@ -180,7 +180,7 @@ class SudokuPuzzleTest {
         @Test
         fun shouldCreateBoard() {
             // given
-            val builder = SudokuPuzzle.Builder(CELL_SIZE)
+            val builder = Puzzle.Builder(CELL_SIZE)
 
             // when
             for (rowIndex in board.indices) {
