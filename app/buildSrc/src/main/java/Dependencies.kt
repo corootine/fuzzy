@@ -1,5 +1,6 @@
 package buildsrc
 
+// TODO: 1/10/21 clean up dependencies and apply correct versions
 object Dependencies {
 
     const val otpview = "com.github.mukeshsolanki:android-otpview-pinview:2.1.2"
@@ -14,7 +15,7 @@ object Dependencies {
     }
 
     object Android {
-        const val gradlePlugin = "com.android.tools.build:gradle:4.0.1"
+        const val gradlePlugin = "com.android.tools.build:gradle:4.1.1"
     }
 
     object Firebase {
