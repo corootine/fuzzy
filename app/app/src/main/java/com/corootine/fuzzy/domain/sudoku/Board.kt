@@ -1,12 +1,12 @@
-package com.corootine.fuzzy.domain.puzzle
+package com.corootine.fuzzy.domain.sudoku
 
 data class Board(private val input: PuzzleGenerator.Input) {
 
-    private val board: Array<IntArray> = Array(input.size) { IntArray(input.size) { 0 } }
+    private val board = Array(input.boardSize) { IntArray(input.boardSize) { 0 } }
 
     fun trySet(row: Int, column: Int, value: Int): Boolean {
-        require(row in 0 until input.size)
-        require(column in 0 until input.size)
+        require(row in 0 until input.boardSize)
+        require(column in 0 until input.boardSize)
         require(value in 1..input.maxValue)
 
         return if (valueUniqueInCell(row, column, value)
@@ -23,8 +23,8 @@ data class Board(private val input: PuzzleGenerator.Input) {
     operator fun get(row: Int, column: Int): Int = board[row][column]
 
     fun reset(row: Int, column: Int) {
-        require(row in 0 until input.size)
-        require(column in 0 until input.size)
+        require(row in 0 until input.boardSize)
+        require(column in 0 until input.boardSize)
 
         board[row][column] = 0
     }
@@ -33,7 +33,15 @@ data class Board(private val input: PuzzleGenerator.Input) {
         val builder = StringBuilder()
 
         for (row in board.indices) {
+            if (row % input.rank == 0) {
+                builder.appendLine()
+            }
+
             for (column in board[row].indices) {
+                if (column % input.rank == 0) {
+                    builder.append(" ")
+                }
+
                 builder.append("${board[row][column]} ")
             }
 

@@ -1,8 +1,8 @@
-package com.corootine.fuzzy.domain.puzzle
+package com.corootine.fuzzy.domain.sudoku
 
 import org.junit.Test
 
-class PuzzleGeneratorTest {
+class OldPuzzleGeneratorTest {
 
     @Test
     fun generatePuzzle() {

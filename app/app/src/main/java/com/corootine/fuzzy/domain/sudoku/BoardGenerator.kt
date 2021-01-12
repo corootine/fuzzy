@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.puzzle
+package com.corootine.fuzzy.domain.sudoku
 
 import kotlin.random.Random
 
@@ -44,8 +44,8 @@ class BoardGenerator(private var input: PuzzleGenerator.Input) {
     }
 
     private fun findNextRowAndColumn(): Pair<Int, Int> {
-        for (i in 0 until input.size) {
-            for (j in 0 until input.size) {
+        for (i in 0 until input.boardSize) {
+            for (j in 0 until input.boardSize) {
                 if (board[i, j] == 0) {
                     return Pair(i, j)
                 }
