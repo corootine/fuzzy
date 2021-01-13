@@ -9,13 +9,15 @@ class BoardGeneratorTest {
     fun test() {
         val random = Random.Default
 
-        val boardGenerator = BoardGenerator(PuzzleGenerator.Input(3, random.nextLong()))
+        val input = PuzzleGenerator.Input(3, random.nextLong())
+        val boardGenerator = BoardGenerator(input)
         val board = boardGenerator.generate()
 
-//        val puzzle = Puzzle.from(PuzzleGenerator.Input(3, random.nextLong()), board)
+        val puzzleGenerator = PuzzleGenerator()
+        val puzzle = puzzleGenerator.generate(input)
 
         println(board.toString())
         println()
-//        println(puzzle.toString())
+        println(puzzle.toString())
     }
 }

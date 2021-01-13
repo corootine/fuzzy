@@ -1,8 +1,20 @@
 package com.corootine.fuzzy.domain.sudoku
 
+// TODO: 1/13/21 introduce a boardBuilder, Board should be immutable
 data class Board(private val input: PuzzleGenerator.Input) {
 
-    private val board = Array(input.boardSize) { IntArray(input.boardSize) { 0 } }
+    private var board = Array(input.boardSize) { IntArray(input.boardSize) { 0 } }
+
+    fun clone(): Board {
+        val clone = Board(input)
+        for (i in 0 until input.boardSize) {
+            for (j in 0 until input.boardSize) {
+                clone.board[i][j] = board[i][j]
+            }
+        }
+
+        return clone
+    }
 
     fun trySet(row: Int, column: Int, value: Int): Boolean {
         require(row in 0 until input.boardSize)
@@ -42,7 +54,11 @@ data class Board(private val input: PuzzleGenerator.Input) {
                     builder.append(" ")
                 }
 
-                builder.append("${board[row][column]} ")
+                if (board[row][column] == 0) {
+                    builder.append("  ")
+                } else {
+                    builder.append("${board[row][column]} ")
+                }
             }
 
             builder.appendLine()
@@ -53,9 +69,9 @@ data class Board(private val input: PuzzleGenerator.Input) {
 
     private fun valueUniqueInCell(row: Int, column: Int, value: Int): Boolean {
         val minRowInCell = (row / input.rank) * input.rank
-        val maxRowInCell = minRowInCell + (input.rank - 1)
+        val maxRowInCell = minRowInCell + (input.rank - 1) // due to starting with index 0
         val minColumnInCell = (column / input.rank) * input.rank
-        val maxColumnInCell = minColumnInCell + (input.rank - 1)
+        val maxColumnInCell = minColumnInCell + (input.rank - 1) // due to starting with index 0
 
         for (rowIndex in minRowInCell..maxRowInCell) {
             for (columnIndex in minColumnInCell..maxColumnInCell) {

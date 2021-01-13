@@ -14,7 +14,7 @@ class PuzzleGenerator {
     private fun generatePuzzle(input: Input, board: Board): Puzzle {
         val random = Random(input.seed)
         var clues = input.boardSize * input.boardSize
-        val puzzle = Puzzle(input, board)
+        val puzzle = Puzzle.create(input, board)
 
         while (clues >= input.difficulty.expectedClues) {
             val row = random.nextInt(input.boardSize)
@@ -31,15 +31,15 @@ class PuzzleGenerator {
     data class Input(
         val rank: Int = 3,
         val seed: Long,
-        val difficulty: Difficulty = Difficulty.EASY
+        val difficulty: Difficulty = Difficulty.MEDIUM
     ) {
 
         val boardSize = rank * rank
         val maxValue = rank * rank
 
         enum class Difficulty(val expectedClues: Int) {
-            EASY(38),
-            MEDIUM(32),
+            EASY(36),
+            MEDIUM(30),
             HARD(22)
         }
     }
