@@ -2,7 +2,7 @@ package com.corootine.fuzzy.domain.sudoku
 
 import org.junit.Test
 
-class OldPuzzleGeneratorTest {
+class OldPuzzleBuilderGeneratorTest {
 
     @Test
     fun generatePuzzle() {

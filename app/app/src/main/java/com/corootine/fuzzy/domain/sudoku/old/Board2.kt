@@ -1,12 +1,14 @@
-package com.corootine.fuzzy.domain.sudoku
+package com.corootine.fuzzy.domain.sudoku.old
+
+import com.corootine.fuzzy.domain.sudoku.PuzzleGenerator
 
 // TODO: 1/13/21 introduce a boardBuilder, Board should be immutable
-data class Board(private val input: PuzzleGenerator.Input) {
+data class Board2(private val input: PuzzleGenerator.Input) {
 
     private var board = Array(input.boardSize) { IntArray(input.boardSize) { 0 } }
 
-    fun clone(): Board {
-        val clone = Board(input)
+    fun clone(): Board2 {
+        val clone = Board2(input)
         for (i in 0 until input.boardSize) {
             for (j in 0 until input.boardSize) {
                 clone.board[i][j] = board[i][j]
@@ -14,6 +16,18 @@ data class Board(private val input: PuzzleGenerator.Input) {
         }
 
         return clone
+    }
+
+    fun isFull(): Boolean {
+        for (i in 0 until input.boardSize) {
+            for (j in 0 until input.boardSize) {
+                if (board[i][j] == 0) {
+                    return false
+                }
+            }
+        }
+
+        return true
     }
 
     fun trySet(row: Int, column: Int, value: Int): Boolean {
@@ -69,9 +83,9 @@ data class Board(private val input: PuzzleGenerator.Input) {
 
     private fun valueUniqueInCell(row: Int, column: Int, value: Int): Boolean {
         val minRowInCell = (row / input.rank) * input.rank
-        val maxRowInCell = minRowInCell + (input.rank - 1) // due to starting with index 0
+        val maxRowInCell = minRowInCell + (input.rank - 1) // - 1 due to starting with index 0
         val minColumnInCell = (column / input.rank) * input.rank
-        val maxColumnInCell = minColumnInCell + (input.rank - 1) // due to starting with index 0
+        val maxColumnInCell = minColumnInCell + (input.rank - 1) // - 1 due to starting with index 0
 
         for (rowIndex in minRowInCell..maxRowInCell) {
             for (columnIndex in minColumnInCell..maxColumnInCell) {
@@ -89,4 +103,18 @@ data class Board(private val input: PuzzleGenerator.Input) {
 
     private fun valueUniqueInColumn(column: Int, value: Int) =
         board.indices.all { row -> board[row][column] != value }
+
+    fun cluesCount(): Int {
+        var count = 0
+
+        for (i in 0 until input.boardSize) {
+            for (j in 0 until input.boardSize) {
+                if (board[i][j] != 0) {
+                    count++
+                }
+            }
+        }
+
+        return count
+    }
 }

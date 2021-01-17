@@ -2,25 +2,24 @@ package com.corootine.fuzzy.domain.sudoku
 
 import kotlin.random.Random
 
-class PuzzleGenerator {
+class PuzzleGenerator(
+    private val solvedPuzzleGenerator: SolvedPuzzleGenerator,
+    private val wellFormityChecker: WellFormityChecker,
+    private val cluesCalculator: CluesCalculator
+) {
 
-    fun generate(input: Input): Puzzle {
-        val boardGenerator = BoardGenerator(input)
-        val board = boardGenerator.generate()
+    fun generate(params: GenerationParams): PuzzleBuilder {
+        val random = Random(params.seed)
+        val puzzle = solvedPuzzleGenerator.generate(params)
 
-        return generatePuzzle(input, board)
-    }
+        var clues = params.fieldsInPuzzle
+        val expectedNumberOfClues = cluesCalculator.numberOfClues(params)
 
-    private fun generatePuzzle(input: Input, board: Board): Puzzle {
-        val random = Random(input.seed)
-        var clues = input.boardSize * input.boardSize
-        val puzzle = Puzzle.create(input, board)
+        while (clues >= expectedNumberOfClues) {
+            val row = random.nextInt(params.rowsInPuzzle)
+            val column = random.nextInt(params.columnsInPuzzle)
 
-        while (clues >= input.difficulty.expectedClues) {
-            val row = random.nextInt(input.boardSize)
-            val column = random.nextInt(input.boardSize)
-
-            if (puzzle.tryRemoveClue(row, column)) {
+            if (tryRemoveClue(params, puzzle, row, column)) {
                 clues--
             }
         }
@@ -28,19 +27,24 @@ class PuzzleGenerator {
         return puzzle
     }
 
-    data class Input(
-        val rank: Int = 3,
-        val seed: Long,
-        val difficulty: Difficulty = Difficulty.MEDIUM
-    ) {
+    private fun tryRemoveClue(
+        params: GenerationParams,
+        puzzleBuilder: PuzzleBuilder,
+        row: Int,
+        column: Int
+    ): Boolean {
+        if (puzzleBuilder[row, column] == 0) {
+            return false
+        }
 
-        val boardSize = rank * rank
-        val maxValue = rank * rank
+        val previousValue = puzzleBuilder[row, column]
+        puzzleBuilder.reset(row, column)
 
-        enum class Difficulty(val expectedClues: Int) {
-            EASY(36),
-            MEDIUM(30),
-            HARD(22)
+        return if (wellFormityChecker.isWellFormed(params, puzzleBuilder)) {
+            true
+        } else {
+            puzzleBuilder.trySet(row, column, previousValue)
+            false
         }
     }
 }
