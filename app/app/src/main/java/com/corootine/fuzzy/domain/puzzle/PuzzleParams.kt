@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.sudokuV1
+package com.corootine.fuzzy.domain.puzzle
 
 const val DEFAULT_ROWS = 3
 const val DEFAULT_COLUMNS = 3

@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.sudokuV1
+package com.corootine.fuzzy.domain.puzzle
 
 class Grid(private val params: PuzzleParams) {
 
