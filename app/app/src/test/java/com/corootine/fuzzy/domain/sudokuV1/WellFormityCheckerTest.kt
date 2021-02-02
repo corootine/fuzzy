@@ -1,6 +1,6 @@
-package com.corootine.fuzzy.domain.sudoku
+package com.corootine.fuzzy.domain.sudokuV1
 
-import com.corootine.fuzzy.domain.sudoku.old.Board2
+import com.corootine.fuzzy.domain.sudokuV1.old.Board2
 import org.junit.Test
 
 class WellFormityCheckerTest {

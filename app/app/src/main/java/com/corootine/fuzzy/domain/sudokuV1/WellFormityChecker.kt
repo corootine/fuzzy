@@ -1,16 +1,16 @@
-package com.corootine.fuzzy.domain.sudoku
+package com.corootine.fuzzy.domain.sudokuV1
 
 class WellFormityChecker {
 
     var solutions = 0
 
-    fun isWellFormed(params: GenerationParams, puzzleBuilder: PuzzleBuilder): Boolean {
+    fun isWellFormed(params: PuzzleParams, puzzleBuilder: PuzzleBuilder): Boolean {
         solutions = 0
         return isWellFormedRecursive(params, puzzleBuilder)
     }
 
     private fun isWellFormedRecursive(
-        params: GenerationParams,
+        params: PuzzleParams,
         puzzleBuilder: PuzzleBuilder
     ): Boolean {
         if (puzzleBuilder.isComplete()) {
@@ -18,8 +18,8 @@ class WellFormityChecker {
             return solutions == 1
         }
 
-        for (row in 0 until params.rowsInPuzzle) {
-            for (column in 0 until params.columnsInPuzzle) {
+        for (row in 0 until params.rowsInGrid) {
+            for (column in 0 until params.columnsInGrid) {
                 if (puzzleBuilder[row, column] == 0) {
                     for (value in 1..params.highestNumber) {
                         if (puzzleBuilder.trySet(row, column, value)) {

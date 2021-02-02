@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.sudoku
+package com.corootine.fuzzy.domain.sudokuV1
 
 import kotlin.random.Random
 
@@ -14,7 +14,7 @@ class SolvedPuzzleGenerator {
         const val NO_COLUMN = -1
     }
 
-    fun generate(params: GenerationParams): PuzzleBuilder {
+    fun generate(params: PuzzleParams): PuzzleBuilder {
         val random = Random(params.seed)
         val puzzleBuilder = PuzzleBuilder.Builder(params)
         generateRecursively(params, puzzleBuilder, random)
@@ -22,7 +22,7 @@ class SolvedPuzzleGenerator {
     }
 
     private fun generateRecursively(
-        params: GenerationParams,
+        params: PuzzleParams,
         builder: PuzzleBuilder.Builder,
         random: Random
     ): Boolean {
@@ -52,11 +52,11 @@ class SolvedPuzzleGenerator {
     }
 
     private fun findNextRowAndColumn(
-        params: GenerationParams,
+        params: PuzzleParams,
         puzzleBuilderBuilder: PuzzleBuilder.Builder
     ): Pair<Int, Int> {
-        for (row in 0 until params.rowsInPuzzle) {
-            for (column in 0 until params.columnsInPuzzle) {
+        for (row in 0 until params.rowsInGrid) {
+            for (column in 0 until params.columnsInGrid) {
                 if (puzzleBuilderBuilder.get(row, column) == 0) {
                     return Pair(row, column)
                 }
@@ -67,7 +67,7 @@ class SolvedPuzzleGenerator {
     }
 
     private fun getNextRandomNumber(
-        params: GenerationParams,
+        params: PuzzleParams,
         random: Random,
         excludes: List<Int>
     ): Int {

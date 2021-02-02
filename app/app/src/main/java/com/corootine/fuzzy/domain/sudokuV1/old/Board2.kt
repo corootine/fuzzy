@@ -1,6 +1,6 @@
-package com.corootine.fuzzy.domain.sudoku.old
+package com.corootine.fuzzy.domain.sudokuV1.old
 
-import com.corootine.fuzzy.domain.sudoku.PuzzleGenerator
+import com.corootine.fuzzy.domain.sudokuV1.PuzzleGenerator
 
 // TODO: 1/13/21 introduce a boardBuilder, Board should be immutable
 data class Board2(private val input: PuzzleGenerator.Input) {

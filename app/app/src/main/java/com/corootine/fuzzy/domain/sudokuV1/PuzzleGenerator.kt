@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.sudoku
+package com.corootine.fuzzy.domain.sudokuV1
 
 import kotlin.random.Random
 
@@ -8,7 +8,7 @@ class PuzzleGenerator(
     private val cluesCalculator: CluesCalculator
 ) {
 
-    fun generate(params: GenerationParams): PuzzleBuilder {
+    fun generate(params: PuzzleParams): PuzzleBuilder {
         val random = Random(params.seed)
         val puzzle = solvedPuzzleGenerator.generate(params)
 
@@ -16,8 +16,8 @@ class PuzzleGenerator(
         val expectedNumberOfClues = cluesCalculator.numberOfClues(params)
 
         while (clues >= expectedNumberOfClues) {
-            val row = random.nextInt(params.rowsInPuzzle)
-            val column = random.nextInt(params.columnsInPuzzle)
+            val row = random.nextInt(params.rowsInGrid)
+            val column = random.nextInt(params.columnsInGrid)
 
             if (tryRemoveClue(params, puzzle, row, column)) {
                 clues--
@@ -28,7 +28,7 @@ class PuzzleGenerator(
     }
 
     private fun tryRemoveClue(
-        params: GenerationParams,
+        params: PuzzleParams,
         puzzleBuilder: PuzzleBuilder,
         row: Int,
         column: Int

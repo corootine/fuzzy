@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.sudoku
+package com.corootine.fuzzy.domain.sudokuV1
 
 import org.junit.Test
 import kotlin.random.Random
