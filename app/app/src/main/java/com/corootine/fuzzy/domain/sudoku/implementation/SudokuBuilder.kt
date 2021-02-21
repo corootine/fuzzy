@@ -6,9 +6,9 @@ import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator
 
 /**
  * An empty grid that is used to build a Sudoku puzzle from scratch.
- * It has loosened restrictions on what fields can be edited e.g. you are allowed to change any
- * field in the grid. Once completed, this one is fed into [SudokuToSolve] which builds a Sudoku
- * puzzle that has more restrictions and is ready to be solved.
+ * It has loosened restrictions on what fields can be edited i.e. you are allowed to change any
+ * field in the grid. Once finished, this one is fed into [SudokuToSolve] which represents a puzzle
+ * that is to be solved. See [SudokuToSolve] for more info.
  */
 class SudokuBuilder(override val metadata: SudokuGenerator.Metadata) : Sudoku {
 
@@ -26,13 +26,13 @@ class SudokuBuilder(override val metadata: SudokuGenerator.Metadata) : Sudoku {
     override fun trySet(row: Int, column: Int, value: Int): Boolean {
         require(row in 0 until metadata.rowsInGrid)
         require(column in 0 until metadata.columnsInGrid)
-        require(value in 1..metadata.highestNumber)
+        require(value in 1..metadata.highestValue)
 
         return if (uniqueInRow(row, value)
             && uniqueInColumn(column, value)
             && uniqueInBox(row, column, value)
         ) {
-            grid[row][column] = Cell(row, column, value, true)
+            grid[row][column] = Cell(row, column, value, false)
             true
         } else {
             false
@@ -49,7 +49,7 @@ class SudokuBuilder(override val metadata: SudokuGenerator.Metadata) : Sudoku {
     override fun isComplete(): Boolean {
         for (row in 0 until metadata.rowsInGrid) {
             for (column in 0 until metadata.columnsInGrid) {
-                if (grid[row][column].isEmpty()) {
+                if (grid[row][column].isEmpty) {
                     return false
                 }
             }
@@ -58,34 +58,19 @@ class SudokuBuilder(override val metadata: SudokuGenerator.Metadata) : Sudoku {
         return true
     }
 
-    override fun iterator(): Iterator<Cell> {
-        TODO("Not yet implemented")
-    }
-
-    override fun toString(): String {
-        val builder = StringBuilder()
-
-        for (row in 0 until metadata.rowsInGrid) {
-            for (column in 0 until metadata.columnsInGrid) {
-                if (!get(row, column).isEmpty()) {
-                    builder.append("${get(row, column).value} ")
-                } else {
-                    builder.append("  ")
-                }
-
-                if ((column + 1) % metadata.columnsPerBox == 0) {
-                    builder.append("  ")
+    val isEmpty: Boolean
+        get() {
+            for (row in 0 until metadata.rowsInGrid) {
+                for (column in 0 until metadata.columnsInGrid) {
+                    if (!grid[row][column].isEmpty) {
+                        return false
+                    }
                 }
             }
 
-            if ((row + 1) % metadata.rowsPerBox == 0) {
-                builder.append("\n")
-            }
-            builder.append("\n")
+            return true
         }
 
-        return builder.toString()
-    }
 
     private fun uniqueInBox(row: Int, column: Int, value: Int): Boolean {
         val minRowInCell = (row / metadata.rowsPerBox) * metadata.rowsPerBox
@@ -108,5 +93,49 @@ class SudokuBuilder(override val metadata: SudokuGenerator.Metadata) : Sudoku {
         grid[row].all { it.value != value }
 
     private fun uniqueInColumn(column: Int, value: Int) =
-        grid.indices.all { row -> grid[row][column].value != value }
+        grid.rows.all { row -> grid[row][column].value != value }
+
+    override fun iterator(): Iterator<Cell> {
+        TODO("Not yet implemented")
+    }
+
+    override fun toString(): String {
+        val builder = StringBuilder()
+
+        for (row in 0 until metadata.rowsInGrid) {
+            for (column in 0 until metadata.columnsInGrid) {
+                if (!get(row, column).isEmpty) {
+                    builder.append("${get(row, column).value} ")
+                } else {
+                    builder.append("  ")
+                }
+
+                if ((column + 1) % metadata.columnsPerBox == 0) {
+                    builder.append("  ")
+                }
+            }
+
+            if ((row + 1) % metadata.rowsPerBox == 0) {
+                builder.append("\n")
+            }
+            builder.append("\n")
+        }
+
+        return builder.toString()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as SudokuBuilder
+
+        if (!grid.contentDeepEquals(other.grid)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int = grid.contentDeepHashCode()
+
+    private val <T> Array<out T>.rows: IntRange get() = indices
 }

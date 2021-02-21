@@ -15,7 +15,8 @@ interface SudokuGenerator {
     fun generate(metadata: Metadata): Sudoku
 
     /**
-     * Parameters for the puzzle generation.
+     * Parameters for the puzzle generation. This class should not be reused between generations,
+     * as it contains state!
      *
      * @param rowsPerBox number of rows in a single sudoku box. Default is [DEFAULT_ROWS]
      * @param columnsPerBox number of columns in a single sudoku box. Default is [DEFAULT_COLUMNS]
@@ -36,9 +37,9 @@ interface SudokuGenerator {
 
         val rowsInGrid = rowsPerBox * columnsPerBox
         val columnsInGrid = rowsPerBox * columnsPerBox
-        val highestNumber = rowsPerBox * columnsPerBox
+        val highestValue = rowsPerBox * columnsPerBox
         val cellsInGrid = rowsInGrid * columnsInGrid
-        val possibleNumbers = 1..highestNumber
+        val possibleValues = 1..highestValue
 
         // TODO: 2/14/21 Look into thread safety if it ends up being used in multiple threads.
         val random = Random(seed)

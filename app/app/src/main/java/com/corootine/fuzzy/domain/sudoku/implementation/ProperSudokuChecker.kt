@@ -23,8 +23,8 @@ class ProperSudokuChecker {
 
         for (row in 0 until metadata.rowsInGrid) {
             for (column in 0 until metadata.columnsInGrid) {
-                if (sudokuBuilder.get(row, column).isEmpty()) {
-                    for (value in 1..metadata.highestNumber) {
+                if (sudokuBuilder.get(row, column).isEmpty) {
+                    for (value in 1..metadata.highestValue) {
                         if (sudokuBuilder.trySet(row, column, value)) {
                             val newSolutions = isWellFormedRecursive(sudokuBuilder, currentSolutions)
                             if (newSolutions > currentSolutions) {

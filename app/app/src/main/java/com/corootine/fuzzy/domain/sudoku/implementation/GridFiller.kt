@@ -12,7 +12,7 @@ class GridFiller {
 
     /**
      * Fills in a grid with random values, thus creating a solved sudoku puzzle.
-     * The solved sudoku puzzle can be used to derive a puzzle with clues, that needs to be solved.
+     * The solved sudoku puzzle can be used to derive a puzzle with clues.
      */
     fun fill(sudokuBuilder: SudokuBuilder) {
         val random = sudokuBuilder.metadata.random
@@ -31,17 +31,17 @@ class GridFiller {
         } else {
             val alreadyVisitedNumbers = arrayListOf<Int>()
 
-            metadata.possibleNumbers.forEach { _ ->
-                val number = metadata.possibleNumbers
+            metadata.possibleValues.forEach { _ ->
+                val value = metadata.possibleValues
                     .minus(alreadyVisitedNumbers)
                     .random(random)
 
-                if (sudokuBuilder.trySet(row, column, number)) {
+                if (sudokuBuilder.trySet(row, column, value)) {
                     if (fillRecursively(metadata, sudokuBuilder, random)) {
                         return true
                     } else {
                         sudokuBuilder.reset(row, column)
-                        alreadyVisitedNumbers.add(number)
+                        alreadyVisitedNumbers.add(value)
                     }
                 }
             }

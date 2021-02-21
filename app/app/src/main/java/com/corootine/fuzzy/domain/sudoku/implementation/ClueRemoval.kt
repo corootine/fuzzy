@@ -2,21 +2,26 @@ package com.corootine.fuzzy.domain.sudoku.implementation
 
 import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator
 
-class ClueRemoval(private val properSudokuChecker: ProperSudokuChecker) {
+class ClueRemoval(
+    private val properSudokuChecker: ProperSudokuChecker,
+    private val clueCalculator: ClueCalculator,
+) {
 
     /**
-     * Removes clues from the solved sudoku until we get a puzzle with valid difficulty
-     * (expected number of clues). The fewer clues the puzzle should have, the longer this
-     * operations takes, because it asserts that with each removed clue, the puzzle is still proper
+     * Removes clues from the solved sudoku until we get a puzzle with valid difficulty. The difficulty
+     * is derived from [SudokuGenerator.Metadata.difficulty]. The fewer clues the puzzle should have,
+     * the longer this operations will take, because it asserts that with each removed clue, the puzzle is
+     * still proper. Using same inputs will produce the same result if called on identical puzzles.
+     *
      * (see [ProperSudokuChecker]).
      */
     fun remove(sudokuBuilder: SudokuBuilder) {
         val metadata = sudokuBuilder.metadata
         val random = metadata.random
         var clues = metadata.cellsInGrid
-        val expectedNumberOfClues = numberOfClues(metadata)
+        val expectedNumberOfClues = clueCalculator.calculate(metadata)
 
-        while (clues >= expectedNumberOfClues) {
+        while (clues > expectedNumberOfClues) {
             val row = random.nextInt(metadata.rowsInGrid)
             val column = random.nextInt(metadata.columnsInGrid)
 
@@ -26,22 +31,12 @@ class ClueRemoval(private val properSudokuChecker: ProperSudokuChecker) {
         }
     }
 
-    private fun numberOfClues(metadata: SudokuGenerator.Metadata): Int {
-        // Just some random constants chosen based on experience in 9x9 puzzles.
-        // These might be chosen in a more methodical and proven fashion.
-        return when (metadata.difficulty) {
-            SudokuGenerator.Metadata.Difficulty.EASY -> metadata.cellsInGrid / 2.4
-            SudokuGenerator.Metadata.Difficulty.MEDIUM -> metadata.cellsInGrid / 3.2
-            SudokuGenerator.Metadata.Difficulty.HARD -> metadata.cellsInGrid / 4
-        }.toInt()
-    }
-
     private fun tryToRemoveClue(
         sudokuBuilder: SudokuBuilder,
         row: Int,
         column: Int
     ): Boolean {
-        if (sudokuBuilder.get(row, column).isEmpty()) {
+        if (sudokuBuilder.get(row, column).isEmpty) {
             return false
         }
 
