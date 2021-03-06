@@ -1,0 +1,40 @@
+name: Android CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version:1.8
+    - name: Build with Gradle
+      working-directory: ./app
+      run: ./gradlew -q clean assembleRelease
+   
+   test:
+     name: Unit Tests
+     runs-on: ubuntu-latest
+     steps:
+     - name: Checkout
+       uses: actions/checkout@v2
+     - name: JDK 1.8
+       uses: actions/setup-java@v1
+     - name: Test
+       working-directory: ./app
+       run: ./gradlew -q testDebug
+     - name: Archive Results
+       if: always()
+       uses: actions/upload-artifact@v2
+       with:
+         name: junit-test-report
+         path: app/app/build/reports/tests/testDebugUnitTest/index.html
