@@ -18,8 +18,8 @@ jobs:
       with:
         java-version:1.8
     - name: Build with Gradle
-      working-directory: ./app
       run: ./gradlew -q clean assembleRelease
+   
    test:
      name: Unit Tests
      runs-on: ubuntu-latest
