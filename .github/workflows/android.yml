@@ -28,7 +28,13 @@ jobs:
     - name: Build
       working-directory: ./app
       run: ./gradlew -q clean assembleRelease
-   
+    - name: Archive Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-release
+        path: app/app/build/outputs/apk/release/apk-release.apk
+        retention-days: 10   
+
   test:
     name: Unit Tests
     runs-on: ubuntu-latest
@@ -47,5 +53,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: testDebug-report
-        path: app/app/build/reports/tests/testDebugUnitTest/index.html
-        retention-days: 5
+        path: app/app/build/reports/tests/testDebugUnitTest
+        retention-days: 10
