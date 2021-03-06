@@ -46,5 +46,6 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: junit-test-report
+        name: testDebug-report
         path: app/app/build/reports/tests/testDebugUnitTest/index.html
+        retention-days: 5
