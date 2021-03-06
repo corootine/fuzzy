@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: app-release
-        path: app/app/build/outputs/apk/release/apk-release.apk
+        path: app/app/build/outputs/apk/release/apk-release-unsigned.apk
         retention-days: 10   
 
   test:
