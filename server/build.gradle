@@ -11,16 +11,24 @@ buildscript {
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.0'
+    id 'application'
 }
 
-apply plugin: 'java'
-apply plugin: 'kotlin'
-apply plugin: 'application'
+application {
+    mainClassName 'com.corootine.fuzzy.server.Server'
+}
 
-mainClassName = 'com.corootine.fuzzy.server.Server'
+jar {
+    archiveBaseName.set('fuzoku-server')
+    archiveVersion.set('0.1.0')
 
-group 'com.coorotine.fuzzy'
-version '0.1.0'
+    manifest {
+        attributes 'Main-Class': 'com.corootine.fuzzy.server.Server'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
@@ -40,10 +48,4 @@ dependencies {
     implementation("io.ktor:ktor-server-core:1.4.0")
     implementation("io.ktor:ktor-server-jetty:1.4.0")
     implementation("io.ktor:ktor-jackson:1.4.0")
-
-    implementation("org.jetbrains.exposed:exposed-core:0.25.1")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.25.1")
-    implementation("org.jetbrains.exposed:exposed-dao:0.25.1")
-
-    implementation("com.h2database:h2:1.4.200")
 }
