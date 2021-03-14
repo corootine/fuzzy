@@ -1,8 +1,8 @@
+@file:JvmName("Server")
+
 package com.corootine.fuzzy.server
 
-import com.corootine.fuzzy.server.dao.appinstance.AppInstanceDao
-import com.corootine.fuzzy.server.route.appinstance.registration
-import com.corootine.fuzzy.server.service.appinstance.AppInstanceRegistration
+import com.corootine.fuzzy.server.routing.deviceBinding
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.*
@@ -31,16 +31,12 @@ fun Application.module() {
         }
     }
 
-    DatabaseFactory.init()
-
-    val appInstanceDao = AppInstanceDao()
-    val appInstanceRegistration = AppInstanceRegistration(appInstanceDao)
-
     install(Routing) {
-        registration(appInstanceRegistration)
+        deviceBinding()
     }
 }
 
 fun main() {
-    embeddedServer(Jetty, 25564, module = Application::module).start()
+    val port = System.getenv("PORT") ?: "8080"
+    embeddedServer(Jetty, port = port.toInt(), module = Application::module).start()
 }
