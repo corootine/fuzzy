@@ -3,6 +3,7 @@
 /local.properties
 /.idea/caches
 /.idea/libraries
+/.idea/dataSources
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
@@ -11,6 +12,10 @@
 /.idea/dataSources.xml
 /.idea/uiDesigner.xml
 /.idea/.name
+/.idea/compiler.xml
+/.idea/gradle.xml
+/.idea/jarRepositories.xml
+
 .DS_Store
 /build
 /captures
