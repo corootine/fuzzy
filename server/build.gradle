@@ -5,12 +5,13 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"
     }
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.4.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.31'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.31'
     id 'application'
 }
 
@@ -18,11 +19,10 @@ application {
     mainClassName 'com.corootine.fuzzy.server.Server'
 }
 
-mainClassName = "com.corootine.fuzzy.server.Server"
-
 jar {
     archiveBaseName.set('fuzoku-server')
     archiveVersion.set('0.1.0')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     manifest {
         attributes 'Main-Class': 'com.corootine.fuzzy.server.Server'
@@ -37,7 +37,6 @@ targetCompatibility = 11
 compileKotlin.kotlinOptions.jvmTarget = '11'
 compileKotlin.destinationDir = compileJava.destinationDir
 compileTestKotlin.kotlinOptions.jvmTarget = '11'
-jar.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
 repositories {
     mavenCentral()
@@ -48,15 +47,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     implementation("io.ktor:ktor-server-core:1.5.2")
-    implementation("io.ktor:ktor-server-jetty:1.5.2")
-    implementation("io.ktor:ktor-jackson:1.5.2")
+    implementation("io.ktor:ktor-server-netty:1.5.2")
+    implementation("io.ktor:ktor-serialization:1.5.2")
 
     implementation("org.slf4j:slf4j-api:1.7.9")
     implementation("ch.qos.logback:logback-classic:1.2.3")
 }
-
-task unzipDist(type: Copy) {
-    from zipTree("$buildDir/libs/fuzoku-server-0.1.0.jar")
-    into new File("$buildDir/unzip")
-}
-build.dependsOn(unzipDist)
