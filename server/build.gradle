@@ -20,7 +20,7 @@ application {
 }
 
 jar {
-    archiveBaseName.set('fuzoku-server')
+    archiveFileName.set('fuzoku-server.jar')
     archiveVersion.set('0.1.0')
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
