@@ -18,6 +18,8 @@ application {
     mainClassName 'com.corootine.fuzzy.server.Server'
 }
 
+mainClassName = "com.corootine.fuzzy.server.Server"
+
 jar {
     archiveBaseName.set('fuzoku-server')
     archiveVersion.set('0.1.0')
@@ -30,12 +32,12 @@ jar {
     }
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
+sourceCompatibility = 11
+targetCompatibility = 11
+compileKotlin.kotlinOptions.jvmTarget = '11'
+compileKotlin.destinationDir = compileJava.destinationDir
+compileTestKotlin.kotlinOptions.jvmTarget = '11'
+jar.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
 repositories {
     mavenCentral()
@@ -45,7 +47,16 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    implementation("io.ktor:ktor-server-core:1.4.0")
-    implementation("io.ktor:ktor-server-jetty:1.4.0")
-    implementation("io.ktor:ktor-jackson:1.4.0")
+    implementation("io.ktor:ktor-server-core:1.5.2")
+    implementation("io.ktor:ktor-server-jetty:1.5.2")
+    implementation("io.ktor:ktor-jackson:1.5.2")
+
+    implementation("org.slf4j:slf4j-api:1.7.9")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
 }
+
+task unzipDist(type: Copy) {
+    from zipTree("$buildDir/libs/fuzoku-server-0.1.0.jar")
+    into new File("$buildDir/unzip")
+}
+build.dependsOn(unzipDist)

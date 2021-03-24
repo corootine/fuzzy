@@ -1,3 +1,5 @@
+@file:JvmName("DeviceBindingRoute")
+
 package com.corootine.fuzzy.server.routing
 
 import io.ktor.application.*
