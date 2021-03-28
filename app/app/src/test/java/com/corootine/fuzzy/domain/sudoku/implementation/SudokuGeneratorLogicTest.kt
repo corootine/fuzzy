@@ -4,9 +4,9 @@ import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class SudokuGeneratorImplTest {
+class SudokuGeneratorLogicTest {
 
-    private val sudokuGenerator = SudokuGeneratorImpl(
+    private val sudokuGenerator = SudokuGeneratorLogic(
         GridFiller(),
         ClueRemoval(ProperSudokuChecker(), ClueCalculator())
     )

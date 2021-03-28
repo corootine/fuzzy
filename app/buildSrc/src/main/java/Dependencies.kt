@@ -7,7 +7,7 @@ object Dependencies {
     const val spinkit = "com.github.ybq:Android-SpinKit:1.4.0"
 
     object Kotlin {
-        private const val version = "1.4.0"
+        private const val version = "1.4.32"
 
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
@@ -16,12 +16,6 @@ object Dependencies {
 
     object Android {
         const val gradlePlugin = "com.android.tools.build:gradle:4.1.1"
-    }
-
-    object Firebase {
-        const val gradlePlugin = "com.google.gms:google-services:4.3.3"
-        const val messaging = "com.google.firebase:firebase-messaging:20.2.4"
-        const val analytics = "com.google.firebase:firebase-analytics:17.5.0"
     }
 
     object AndroidX {
@@ -50,7 +44,7 @@ object Dependencies {
     }
 
     object Hilt {
-        private const val version = "2.28-alpha"
+        private const val version = "2.33-beta"
 
         const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val hilt = "com.google.dagger:hilt-android:$version"

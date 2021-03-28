@@ -2,13 +2,15 @@ package com.corootine.fuzzy.network.di
 
 import android.content.Context
 import com.corootine.fuzzy.BuildConfig
-import com.corootine.fuzzy.network.registration.RegistrationController
+import com.corootine.fuzzy.network.retrofit.RequestExecutor
+import com.corootine.fuzzy.network.retrofit.RetrofitRequestExecutor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -20,8 +22,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
-object NetworkModule {
+@InstallIn(SingletonComponent::class)
+abstract class NetworkModule {
 
     @Singleton
     @Provides
@@ -56,9 +58,6 @@ object NetworkModule {
             .build()
     }
 
-    @Singleton
-    @Provides
-    fun provideRegistrationController(retrofit: Retrofit): RegistrationController {
-        return retrofit.create(RegistrationController::class.java)
-    }
+    @Binds
+    abstract fun provideRetrofitRequestExecutor(retrofitRequestExecutor: RetrofitRequestExecutor): RequestExecutor
 }

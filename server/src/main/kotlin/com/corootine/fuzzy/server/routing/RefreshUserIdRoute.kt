@@ -18,7 +18,7 @@ data class RefreshUserIdRequest(val userId: String? = null)
 data class RefreshUserIdResponse(val userId: String)
 
 fun Route.refreshUserId(userIdProvider: UserIdProvider) {
-    post("/refresh") {
+    post("/refreshuserid") {
         val request = call.receive<RefreshUserIdRequest>()
         val userId = request.userId?.let { UserId(it) }
 

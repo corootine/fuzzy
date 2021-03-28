@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * First activity that's opened when the app is started.
  */
 @AndroidEntryPoint
-class SplashActivity: AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
 
     private val viewModel: SplashViewModel by viewModels()
 

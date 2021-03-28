@@ -3,7 +3,7 @@ package com.corootine.fuzzy.domain.sudoku.implementation
 import com.corootine.fuzzy.domain.sudoku.api.Sudoku
 import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator
 
-class SudokuGeneratorImpl(
+class SudokuGeneratorLogic(
     private val gridFiller: GridFiller,
     private val clueRemoval: ClueRemoval
 ) : SudokuGenerator {
