@@ -37,6 +37,9 @@ targetCompatibility = 11
 compileKotlin.kotlinOptions.jvmTarget = '11'
 compileKotlin.destinationDir = compileJava.destinationDir
 compileTestKotlin.kotlinOptions.jvmTarget = '11'
+compileKotlin.kotlinOptions {
+    freeCompilerArgs = ["-Xinline-classes"]
+}
 
 repositories {
     mavenCentral()

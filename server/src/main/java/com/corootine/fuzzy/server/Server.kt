@@ -2,7 +2,8 @@
 
 package com.corootine.fuzzy.server
 
-import com.corootine.fuzzy.server.routing.deviceBinding
+import com.corootine.fuzzy.server.routing.refreshUserId
+import com.corootine.fuzzy.server.service.user.UserIdProviderLogic
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -29,7 +30,7 @@ fun Application.module() {
     }
 
     install(Routing) {
-        deviceBinding()
+        refreshUserId(UserIdProviderLogic())
     }
 }
 
