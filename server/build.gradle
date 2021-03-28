@@ -10,22 +10,22 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.4.31'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.31'
-    id 'application'
+    id "org.jetbrains.kotlin.jvm" version "1.4.31"
+    id "org.jetbrains.kotlin.plugin.serialization" version "1.4.31"
+    id "application"
 }
 
 application {
-    mainClassName 'com.corootine.fuzzy.server.Server'
+    mainClassName "com.corootine.fuzzy.server.Server"
 }
 
 jar {
-    archiveFileName.set('fuzoku-server.jar')
-    archiveVersion.set('0.1.0')
+    archiveFileName.set("fuzoku-server.jar")
+    archiveVersion.set("0.1.0")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     manifest {
-        attributes 'Main-Class': 'com.corootine.fuzzy.server.Server'
+        attributes "Main-Class": "com.corootine.fuzzy.server.Server"
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
@@ -34,9 +34,8 @@ jar {
 
 sourceCompatibility = 11
 targetCompatibility = 11
-compileKotlin.kotlinOptions.jvmTarget = '11'
-compileKotlin.destinationDir = compileJava.destinationDir
-compileTestKotlin.kotlinOptions.jvmTarget = '11'
+compileKotlin.kotlinOptions.jvmTarget = "11"
+compileTestKotlin.kotlinOptions.jvmTarget = "11"
 compileKotlin.kotlinOptions {
     freeCompilerArgs = ["-Xinline-classes"]
 }
@@ -55,7 +54,13 @@ dependencies {
 
     implementation("org.slf4j:slf4j-api:1.7.9")
     implementation("ch.qos.logback:logback-classic:1.2.3")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.1.0")
 }
 
-task stage(dependsOn: ['clean', 'assemble'])
+test {
+    useJUnitPlatform()
+}
+
+task stage(dependsOn: ["clean", "assemble"])
 assemble.mustRunAfter(clean)
