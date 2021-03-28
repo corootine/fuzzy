@@ -24,7 +24,7 @@ jobs:
       run: ./gradlew -q clean assemble
     - name: Test
       working-directory: ./server
-      run: ./gradlew -q clean test 
+      run: ./gradlew -q test 
     - name: Deploy
       uses: akhileshns/heroku-deploy@v3.12.12
       with:

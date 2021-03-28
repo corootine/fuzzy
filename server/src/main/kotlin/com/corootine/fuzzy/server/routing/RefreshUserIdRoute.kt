@@ -17,8 +17,6 @@ data class RefreshUserIdRequest(val userId: String? = null)
 @Serializable
 data class RefreshUserIdResponse(val userId: String)
 
-private val logger = LoggerFactory.getLogger("RefreshUserIdRoute")
-
 fun Route.refreshUserId(userIdProvider: UserIdProvider) {
     post("/refresh") {
         val request = call.receive<RefreshUserIdRequest>()
