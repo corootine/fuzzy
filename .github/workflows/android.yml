@@ -24,7 +24,7 @@ jobs:
       run: ./gradlew -q clean assembleRelease
     - name: Test
       working-directory: ./app
-      run: ./gradlew -q clean testDebug
+      run: ./gradlew -q testDebug
     - name: Archive APK
       uses: actions/upload-artifact@v2
       with:
