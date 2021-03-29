@@ -1,6 +1,6 @@
 package com.corootine.fuzzy.domain.sudoku.implementation
 
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator
 
 class ClueRemoval(
     private val properSudokuChecker: ProperSudokuChecker,

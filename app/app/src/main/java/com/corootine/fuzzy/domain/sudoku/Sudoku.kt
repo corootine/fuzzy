@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.sudoku.api
+package com.corootine.fuzzy.domain.sudoku
 
 /**
  * Represents a sudoku puzzle. It provides a set of methods to read the puzzle, set and reset all

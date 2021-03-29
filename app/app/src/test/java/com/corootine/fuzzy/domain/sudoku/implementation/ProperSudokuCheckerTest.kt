@@ -1,7 +1,7 @@
 package com.corootine.fuzzy.domain.sudoku.implementation
 
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator.Metadata.Difficulty
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator.Metadata.Difficulty
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
 import org.junit.Test
@@ -89,7 +89,8 @@ class ProperSudokuCheckerTest(private val puzzle: Array<Array<Int>>) {
 
     @Test
     fun `isProper - with improper puzzle - expect false`() {
-        val sudokuBuilder = SudokuBuilder(SudokuGenerator.Metadata(
+        val sudokuBuilder = SudokuBuilder(
+            SudokuGenerator.Metadata(
             rowsPerBox = 2,
             columnsPerBox = 2,
             seed = 123456,

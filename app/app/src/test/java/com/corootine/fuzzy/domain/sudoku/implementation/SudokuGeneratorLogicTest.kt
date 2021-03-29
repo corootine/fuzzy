@@ -1,6 +1,6 @@
 package com.corootine.fuzzy.domain.sudoku.implementation
 
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

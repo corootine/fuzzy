@@ -1,7 +1,7 @@
-package com.corootine.fuzzy.domain.sudoku.api
+package com.corootine.fuzzy.domain.sudoku
 
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator.Metadata.Companion.DEFAULT_COLUMNS
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator.Metadata.Companion.DEFAULT_ROWS
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator.Metadata.Companion.DEFAULT_COLUMNS
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator.Metadata.Companion.DEFAULT_ROWS
 import kotlin.random.Random
 
 interface SudokuGenerator {

@@ -1,8 +1,8 @@
 package com.corootine.fuzzy.domain.sudoku.implementation
 
-import com.corootine.fuzzy.domain.sudoku.api.Sudoku
-import com.corootine.fuzzy.domain.sudoku.api.Sudoku.Cell
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator
+import com.corootine.fuzzy.domain.sudoku.Sudoku
+import com.corootine.fuzzy.domain.sudoku.Sudoku.Cell
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator
 
 /**
  * Represents a Sudoku puzzle which is ready to be solved. It is derived from the [SudokuBuilder]
