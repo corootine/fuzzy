@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.userId.api
+package com.corootine.fuzzy.domain.userId
 
 interface UserIdProvider {
 

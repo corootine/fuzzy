@@ -1,7 +1,7 @@
 package com.corootine.fuzzy.domain.userId.implementation
 
-import com.corootine.fuzzy.domain.userId.api.UserId
-import com.corootine.fuzzy.domain.userId.api.UserIdProvider
+import com.corootine.fuzzy.domain.userId.UserId
+import com.corootine.fuzzy.domain.userId.UserIdProvider
 import com.corootine.fuzzy.domain.userId.implementation.RefreshUserIdController.Request
 import com.corootine.fuzzy.network.retrofit.RequestExecutor
 import javax.inject.Inject

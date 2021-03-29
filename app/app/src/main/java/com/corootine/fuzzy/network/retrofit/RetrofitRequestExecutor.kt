@@ -1,9 +1,9 @@
 package com.corootine.fuzzy.network.retrofit
 
 import org.slf4j.LoggerFactory
-import java.lang.Exception
+import javax.inject.Inject
 
-class RetrofitRequestExecutor : RequestExecutor {
+class RetrofitRequestExecutor @Inject constructor() : RequestExecutor {
 
     private val logger = LoggerFactory.getLogger(RetrofitRequestExecutor::class.java)
 
