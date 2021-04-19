@@ -4,10 +4,10 @@ package buildsrc
 object Dependencies {
 
     const val otpview = "com.github.mukeshsolanki:android-otpview-pinview:2.1.2"
-    const val spinkit = "com.github.ybq:Android-SpinKit:1.4.0"
+    const val spinkit = "com.github.ybq:Android-SpinKit:1.4.1"
 
     object Kotlin {
-        private const val version = "1.4.32"
+        private const val version = "1.4.31"
 
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
@@ -15,7 +15,7 @@ object Dependencies {
     }
 
     object Android {
-        const val gradlePlugin = "com.android.tools.build:gradle:4.1.1"
+        const val gradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha12"
     }
 
     object AndroidX {

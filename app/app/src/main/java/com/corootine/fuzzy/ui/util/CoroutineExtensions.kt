@@ -10,12 +10,16 @@ import org.slf4j.LoggerFactory
 
 private val logger = LoggerFactory.getLogger("CoroutineExtensions")
 
-fun ViewModel.viewModelLaunchSafe(block: suspend CoroutineScope.() -> Unit) {
+fun ViewModel.viewModelLaunchSafe(
+    onFailed: () -> Unit = {},
+    block: suspend CoroutineScope.() -> Unit
+) {
     viewModelScope.launch {
         try {
             block()
         } catch (exception: Exception) {
             logger.error("Coroutine failed with an exception", exception)
+            onFailed()
         }
     }
 }
