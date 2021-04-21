@@ -1,8 +1,8 @@
 package com.corootine.fuzzy.domain.sudoku.implementation
 
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator.Metadata.Difficulty
-import com.corootine.fuzzy.domain.sudoku.api.SudokuGenerator.Metadata.Difficulty.*
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator.Metadata.Difficulty
+import com.corootine.fuzzy.domain.sudoku.SudokuGenerator.Metadata.Difficulty.*
 import org.junit.Assert.assertTrue
 import org.junit.Test
 

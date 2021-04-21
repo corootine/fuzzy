@@ -1,49 +1,41 @@
 package com.corootine.fuzzy.domain.di
 
 import android.content.Context
-import android.content.SharedPreferences
-import com.google.firebase.iid.FirebaseInstanceId
+import android.content.Context.MODE_PRIVATE
+import com.corootine.fuzzy.domain.userId.UserIdProvider
+import com.corootine.fuzzy.domain.userId.implementation.RefreshUserIdController
+import com.corootine.fuzzy.domain.userId.implementation.UserIdProviderLogic
+import com.corootine.fuzzy.domain.userId.implementation.UserIdRepository
+import com.corootine.fuzzy.domain.userId.implementation.UserIdRepositoryLogic
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Qualifier
+import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
-class DomainModule {
+@InstallIn(SingletonComponent::class)
+abstract class DomainModule {
 
-    @Singleton
-    @Provides
-    fun provideFirebaseInstanceId(): FirebaseInstanceId = FirebaseInstanceId.getInstance()
+    @Binds
+    abstract fun bindUserIdProvider(userIdProviderLogic: UserIdProviderLogic): UserIdProvider
 
-    @Singleton
-    @Provides
-    @AppInstanceSharedPreferences
-    fun provideAppInstanceSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(
-            "e8144c95-db32-4ecd-aa0e-95ba262843fb",
-            Context.MODE_PRIVATE
-        )
+    companion object {
+
+        @Singleton
+        @Provides
+        fun provideUserIdRepository(@ApplicationContext context: Context): UserIdRepository {
+            val preferences = context.getSharedPreferences("userIdPreferences", MODE_PRIVATE)
+            return UserIdRepositoryLogic(preferences)
+        }
+
+        @Singleton
+        @Provides
+        fun provideRefreshUserIdController(retrofit: Retrofit): RefreshUserIdController {
+            return retrofit.create(RefreshUserIdController::class.java)
+        }
     }
-
-    @Singleton
-    @Provides
-    @NotificationTokenSharedPreferences
-    fun provideNotificationTokenSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(
-            "814e4aa0-6801-4e1d-bc3d-e5f6805745ad",
-            Context.MODE_PRIVATE
-        )
-    }
-
-    @Qualifier
-    @Retention(AnnotationRetention.BINARY)
-    annotation class AppInstanceSharedPreferences
-
-    @Qualifier
-    @Retention(AnnotationRetention.BINARY)
-    annotation class NotificationTokenSharedPreferences
 }

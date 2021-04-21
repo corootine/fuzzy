@@ -42,23 +42,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appId" />
 
-    <com.mukesh.OtpView
-        android:id="@+id/enterAppId"
-        style="@style/OtpWidget.OtpView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:inputType="number"
-        android:itemBackground="#212121"
-        android:paddingStart="48dp"
-        android:paddingEnd="48dp"
-        app:OtpHideLineWhenFilled="true"
-        app:OtpItemCount="6"
-        app:OtpState_filled="true"
-        app:OtpViewType="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headline2" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startButton"
@@ -72,6 +55,6 @@
         app:cornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/enterAppId" />
+        app:layout_constraintTop_toBottomOf="@id/headline1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

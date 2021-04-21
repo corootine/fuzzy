@@ -3,22 +3,23 @@ import buildsrc.Dependencies
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven {
+            url "https://kotlin.bintray.com/kotlinx"
+        }
     }
 
     dependencies {
         classpath(Dependencies.Kotlin.gradlePlugin)
-        classpath(Dependencies.Kotlin.serializationGradlePlugin)
         classpath(Dependencies.Android.gradlePlugin)
         classpath(Dependencies.Hilt.gradlePlugin)
-        classpath(Dependencies.Firebase.gradlePlugin)
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url("https://jitpack.io") }
     }
 }
