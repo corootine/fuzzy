@@ -11,6 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -29,13 +30,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.MutableLiveData
 import okhttp3.internal.toImmutableList
+import java.util.stream.Collectors
 
 @ExperimentalComposeUiApi
 @Composable
-fun NumberInput(length: Int) {
+fun NumberInput(
+    modifier: Modifier = Modifier,
+    length: Int,
+    onInputChanged: (String) -> Unit,
+) {
     val session = remember { mutableStateOf(NumberInputSession(length)) }
     val inputs by session.value.inputs.observeAsState()
-    val focus by session.value.focus.observeAsState()
+    val currentFocus by session.value.focus.observeAsState()
+    onInputChanged(inputs?.stream()?.map { it }?.collect(Collectors.joining()) ?: "")
 
     val textInputService = LocalTextInputService.current
     val editProcessor = EditProcessor()
@@ -61,14 +68,12 @@ fun NumberInput(length: Int) {
     }
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(PaddingValues(horizontal = 20f.dp, vertical = 30f.dp)),
+        modifier = modifier,
         horizontalArrangement = Arrangement.Center,
     ) {
         for (i in 0 until length) {
             NumberInputField(
-                focus = focus?.get(i) ?: false,
+                requestFocus = currentFocus?.get(i) ?: false,
                 value = inputs?.get(i) ?: "",
             ) { focusState ->
                 session.value.onFocusChange(i, focusState)
@@ -81,7 +86,7 @@ fun NumberInput(length: Int) {
 @ExperimentalComposeUiApi
 @Composable
 fun NumberInputField(
-    focus: Boolean,
+    requestFocus: Boolean,
     value: String,
     onFocusChange: (FocusState) -> Unit,
 ) {
@@ -89,27 +94,28 @@ fun NumberInputField(
     val borderWidth: Dp
     val borderColor: Color
     val fontSize: TextUnit
-    val paddingTop: Dp
+    val focusPadding: Dp
 
-    when (focus) {
+    when (requestFocus) {
         true -> {
             borderWidth = 3f.dp
             borderColor = MaterialTheme.colors.onBackground
             fontSize = 26.sp
-            paddingTop = 0.dp
+            focusPadding = 0.dp
         }
         false -> {
             borderWidth = 2f.dp
             borderColor = MaterialTheme.colors.onBackground.copy(alpha = 0.5f)
             fontSize = 24.sp
-            paddingTop = 3.dp
+            focusPadding = 3.dp
         }
     }
 
     Box(
         modifier = Modifier
             .width(35.dp)
-            .padding(top = paddingTop)
+            .height(60.dp)
+            .padding(top = focusPadding, bottom = focusPadding)
             .border(
                 borderWidth, SolidColor(borderColor),
                 RoundedCornerShape(6f.dp)
@@ -120,18 +126,18 @@ fun NumberInputField(
             .onFocusChanged { onFocusChange(it) }
             .focusRequester(focusRequester)
             .focusable(enabled = true, interactionSource = null)
-            .animateContentSize()
+            .animateContentSize(),
+        contentAlignment = Alignment.Center
     ) {
         Text(
-            modifier = Modifier.padding(10f.dp + borderWidth),
+            modifier = Modifier.padding(borderWidth),
             text = value,
-            textAlign = TextAlign.Center,
             fontSize = fontSize,
             style = MaterialTheme.typography.button
         )
     }
-    DisposableEffect(focus) {
-        if (focus) {
+    DisposableEffect(requestFocus) {
+        if (requestFocus) {
             focusRequester.requestFocus()
         }
         onDispose { }
@@ -218,5 +224,5 @@ private class NumberInputSession(private val length: Int) {
 @Preview
 @Composable
 fun UserIdInputPreview() {
-    NumberInput(4)
+    NumberInput(modifier = Modifier, 4) {}
 }

@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.ui.splash
+package com.corootine.fuzzy.ui.startgame
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -8,24 +8,25 @@ import com.corootine.fuzzy.ui.util.viewModelLaunchSafe
 
 sealed class Result {
     object Pending : Result()
-    object Success : Result()
+    class Success(val userId: String) : Result()
     object Failed : Result()
 }
 
-class SplashViewModel @ViewModelInject constructor(
+class StartGameViewModel @ViewModelInject constructor(
     private val userIdProvider: UserIdProvider
-) : ViewModel() {
+): ViewModel() {
 
-    val userIdFetchLiveData: MutableLiveData<Result> = MutableLiveData()
+    val userId: MutableLiveData<Result> = MutableLiveData()
 
     init {
         viewModelLaunchSafe(
             block = {
-                userIdProvider.provide()
-                userIdFetchLiveData.postValue(Result.Success)
+                val userId = userIdProvider.provide()
+                this@StartGameViewModel.userId.postValue(Result.Success(userId.id))
             },
             onFailed = {
-                userIdFetchLiveData.postValue(Result.Failed)
+                userId.postValue(Result.Failed)
             }
         )
-    }}
+    }
+}

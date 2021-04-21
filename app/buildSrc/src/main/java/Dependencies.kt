@@ -15,7 +15,7 @@ object Dependencies {
     }
 
     object Android {
-        const val gradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha12"
+        const val gradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha14"
     }
 
     object AndroidX {

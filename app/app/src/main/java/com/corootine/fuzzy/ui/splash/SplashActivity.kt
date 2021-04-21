@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.corootine.fuzzy.ui.creategame.CreateGameActivity
+import com.corootine.fuzzy.ui.startgame.CreateGameActivity
 import com.corootine.fuzzy.ui.theme.FuzokuTheme
 import com.corootine.fuzzy.ui.theme.GreenA200
 import com.corootine.fuzzy.ui.widgets.ScalingCircularProgressIndicator
@@ -37,7 +37,7 @@ class SplashActivity : ComponentActivity() {
     @Preview
     @Composable
     fun SplashScreen(splashViewModel: SplashViewModel = viewModel()) {
-        val result: Result by splashViewModel.userIdFetchLiveData.observeAsState(Result.Pending())
+        val result: Result by splashViewModel.userIdFetchLiveData.observeAsState(Result.Pending)
         val context = LocalContext.current
 
         when (result) {

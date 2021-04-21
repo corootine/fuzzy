@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 val GreenA200 = Color(0xFF69F0AE)
 
 val FuzokuColors = darkColors(
-    primary = Color(0xFFFFFFFF),
+    primary = Color(0xFF69F0AE),
     primaryVariant = Color(0xFFAEAEB1),
     onPrimary = Color(0xFF2A2931),
     secondary = Color(0xFF2A2931),
