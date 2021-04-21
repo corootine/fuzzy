@@ -1,13 +1,19 @@
 @startuml
-title Device Binding
-
+autonumber 1
+title Refresh User ID
 actor User
 
 User->App: start
-App->Server: register()
-Server->Server: generateUniqueAppId(): appId
-Server->Server: storeAppId(appId)
-Server->App: appId: String
-App->User: showAppId(appId: String)
+App->App: getStoredUserId()
+App->Server: refreshUserId(userId)
+Server->Server: isUserIdStillValid(userId)
+
+alt user id invalid
+  Server->Server: generateAndStoreNewUserId()
+else user id valid
+  Server->Server: reuse same user id
+end
+
+App<--Server: userId
 
 @enduml

@@ -14,7 +14,7 @@ class UserIdProviderLogic @Inject constructor(
 
     override suspend fun provide(): UserId {
         val currentUserId = userIdRepository.get()
-        val request = currentUserId?.let { Request(it.id) } ?: RefreshUserIdController.Request.empty()
+        val request = currentUserId?.let { Request(it.id) } ?: Request.empty()
 
         val response = requestExecutor.execute { refreshUserIdController.refreshUserId(request) }
         val refreshedUserId = UserId(response.userId)

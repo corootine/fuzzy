@@ -3,8 +3,6 @@ package com.corootine.fuzzy.ui.theme
 import androidx.compose.material.darkColors
 import androidx.compose.ui.graphics.Color
 
-val GreenA200 = Color(0xFF69F0AE)
-
 val FuzokuColors = darkColors(
     primary = Color(0xFF69F0AE),
     primaryVariant = Color(0xFFAEAEB1),

@@ -2,18 +2,15 @@ package com.corootine.fuzzy.ui.widgets
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.scale
-import androidx.compose.ui.tooling.preview.Preview
-import com.corootine.fuzzy.ui.theme.GreenA200
 
 @Composable
-fun ScalingCircularProgressIndicator(modifier: Modifier, color: Color) {
+fun ScalingCircularProgressIndicator(modifier: Modifier, color: Color = MaterialTheme.colors.primary) {
     val infiniteTransition = rememberInfiniteTransition()
 
     val smallCircleScale by infiniteTransition.animateFloat(
@@ -41,15 +38,4 @@ fun ScalingCircularProgressIndicator(modifier: Modifier, color: Color) {
             drawCircle(color = color, alpha = 0.5f)
         }
     }
-}
-
-@Preview
-@Composable
-fun ScalingCircularProgressBarPreview() {
-    ScalingCircularProgressIndicator(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
-        color = GreenA200
-    )
 }
