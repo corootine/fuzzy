@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.ui.startgame
+package com.corootine.fuzzy.ui.matchmaking
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.corootine.fuzzy.domain.userId.UserIdProvider
 import com.corootine.fuzzy.ui.util.viewModelLaunchSafe
 
-class StartGameViewModel @ViewModelInject constructor(
+class MatchmakingViewModel @ViewModelInject constructor(
     private val userIdProvider: UserIdProvider
 ): ViewModel() {
 
@@ -17,11 +17,11 @@ class StartGameViewModel @ViewModelInject constructor(
         viewModelLaunchSafe(
             block = {
                 val userId = userIdProvider.provide()
-                this@StartGameViewModel.userId.postValue(userId.id)
+                this@MatchmakingViewModel.userId.postValue(userId.id)
             }
         )
     }
-
+    
     fun onPartnerUserIdChanged(userId: String) {
         if (userId.length == 6) {
             allowConnection.postValue(true)

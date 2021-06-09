@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.corootine.fuzzy.ui.startgame.CreateGameActivity
+import com.corootine.fuzzy.ui.matchmaking.CreateGameActivity
 import com.corootine.fuzzy.ui.theme.setFuzokuContent
 import com.corootine.fuzzy.ui.widgets.ScalingCircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint

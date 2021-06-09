@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.ui.startgame
+package com.corootine.fuzzy.ui.matchmaking
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -36,7 +36,7 @@ class CreateGameActivity : ComponentActivity() {
 
 @ExperimentalComposeUiApi
 @Composable
-fun CreateGameScreen(viewModel: StartGameViewModel = viewModel()) {
+fun CreateGameScreen(viewModel: MatchmakingViewModel = viewModel()) {
     val userId = viewModel.userId.observeAsState("")
     val enableButton = viewModel.allowConnection.observeAsState(false)
 

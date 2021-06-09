@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".ui.startgame.CreateGameActivity"
+            android:name=".ui.matchmaking.CreateGameActivity"
             android:screenOrientation="portrait" />
 
     </application>
