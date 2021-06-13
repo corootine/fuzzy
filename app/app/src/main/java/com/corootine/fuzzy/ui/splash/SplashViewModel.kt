@@ -3,8 +3,7 @@ package com.corootine.fuzzy.ui.splash
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.corootine.fuzzy.domain.userId.UserIdProvider
-import com.corootine.fuzzy.ui.util.viewModelLaunchSafe
+import com.corootine.fuzzy.domain.userId.provide.UserIdProvider
 
 sealed class Result {
     object Pending : Result()
@@ -19,13 +18,18 @@ class SplashViewModel @ViewModelInject constructor(
     val userIdFetchLiveData: MutableLiveData<Result> = MutableLiveData()
 
     init {
-        viewModelLaunchSafe(
-            block = {
-                userIdProvider.provide()
-                userIdFetchLiveData.postValue(Result.Success)
-            },
-            onFailed = {
-                userIdFetchLiveData.postValue(Result.Failed)
-            }
-        )
-    }}
+//        viewModelLaunchSafe(
+//            block = {
+//                userIdProvider.addObserver()
+//                userIdFetchLiveData.postValue(Result.Success)
+//            },
+//            onFailed = {
+//                userIdFetchLiveData.postValue(Result.Failed)
+//            }
+//        )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+    }
+}

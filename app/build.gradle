@@ -1,6 +1,7 @@
 import buildsrc.Dependencies
 
 buildscript {
+    ext.kotlin_version = '1.4.31'
     repositories {
         google()
         mavenCentral()
@@ -13,6 +14,7 @@ buildscript {
         classpath(Dependencies.Kotlin.gradlePlugin)
         classpath(Dependencies.Android.gradlePlugin)
         classpath(Dependencies.Hilt.gradlePlugin)
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 

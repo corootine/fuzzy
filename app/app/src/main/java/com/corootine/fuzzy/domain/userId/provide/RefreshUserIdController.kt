@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.domain.userId.implementation
+package com.corootine.fuzzy.domain.userId.provide
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
