@@ -34,5 +34,6 @@ fun Application.module() {
 }
 
 fun main() {
-
+    val port = System.getenv("PORT") ?: "8080"
+    embeddedServer(Netty, port = port.toInt(), module = Application::module).start()
 }
