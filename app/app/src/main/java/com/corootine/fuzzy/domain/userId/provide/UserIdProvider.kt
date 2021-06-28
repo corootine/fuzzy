@@ -3,18 +3,23 @@ package com.corootine.fuzzy.domain.userId.provide
 import com.corootine.fuzzy.domain.di.ApplicationScope
 import com.corootine.fuzzy.domain.di.IODispatcher
 import com.corootine.fuzzy.domain.userId.provide.RefreshUserIdController.Request
+import com.corootine.fuzzy.domain.userId.provide.UserIdProvider.UserIdState
 import com.corootine.fuzzy.network.retrofit.RequestExecutor
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.withContext
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
 
 interface UserIdProvider {
 
-    val userIdFlow: SharedFlow<UserId>
+    val userIdStateFlow: StateFlow<UserIdState>
+
+    sealed class UserIdState {
+
+        class Available(val userId: UserId) : UserIdState()
+        object Pending : UserIdState()
+    }
 }
 
 class UserIdProviderLogic @Inject constructor(
@@ -29,10 +34,7 @@ class UserIdProviderLogic @Inject constructor(
 
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    private val _userIdFlow: MutableSharedFlow<UserId> = MutableSharedFlow(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_LATEST
-    )
+    private val _userIdFlow: MutableStateFlow<UserIdState> = MutableStateFlow(value = UserIdState.Pending)
 
     init {
         _userIdFlow.subscriptionCount
@@ -47,17 +49,17 @@ class UserIdProviderLogic @Inject constructor(
             .launchIn(applicationScope)
     }
 
-    override val userIdFlow: SharedFlow<UserId> = _userIdFlow.asSharedFlow()
+    override val userIdStateFlow: StateFlow<UserIdState> = _userIdFlow.asStateFlow()
 
-    private suspend fun refreshAndEmit() = withContext(ioDispatcher) {
+    private suspend fun refreshAndEmit() {
         val currentUserId = userIdRepository.get()
-        val request = currentUserId?.let { Request(it.id) } ?: Request.empty()
+        val request = currentUserId?.let { Request(it.value) } ?: Request.empty()
 
         val response = requestExecutor.execute { refreshUserIdController.refreshUserId(request) }
         val refreshedUserId = UserId(response.userId)
         logger.debug("Fetched new user id $refreshedUserId. Current user id is $currentUserId")
 
         userIdRepository.set(refreshedUserId)
-        _userIdFlow.emit(refreshedUserId)
+        _userIdFlow.emit(UserIdState.Available(refreshedUserId))
     }
 }

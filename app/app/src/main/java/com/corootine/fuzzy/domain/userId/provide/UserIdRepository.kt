@@ -30,7 +30,7 @@ class UserIdRepositoryLogic @Inject constructor(
 
     override fun set(userId: UserId) {
         preferences.edit()
-            .putString(KEY_USER_ID, userId.id)
+            .putString(KEY_USER_ID, userId.value)
             .apply()
     }
 }
