@@ -7,6 +7,7 @@ plugins {
     id("kotlin-kapt")
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.31'
 }
+apply plugin: 'kotlin-android'
 
 repositories {
     google()
@@ -98,6 +99,7 @@ dependencies {
 
     implementation(Dependencies.Hilt.hilt)
     implementation(Dependencies.Hilt.viewmodel)
+    implementation 'androidx.lifecycle:lifecycle-common:2.3.1'
     kapt(Dependencies.Hilt.androidKapt)
     kapt(Dependencies.Hilt.coreKapt)
 
@@ -106,6 +108,13 @@ dependencies {
 
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha08"
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-process:2.3.1")
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02")
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {

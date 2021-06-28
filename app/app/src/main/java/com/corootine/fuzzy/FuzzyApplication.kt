@@ -4,9 +4,4 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class FuzzyApplication : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-    }
-}
+class FuzzyApplication : Application()
