@@ -2,7 +2,6 @@
 
 package com.corootine.fuzzy.server
 
-import Test
 import com.corootine.fuzzy.server.routing.refreshUserId
 import com.corootine.fuzzy.server.service.user.UserIdProviderLogic
 import io.ktor.application.*
@@ -11,6 +10,8 @@ import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 import org.slf4j.LoggerFactory
 
 private val logger = LoggerFactory.getLogger("Server.kt")
