@@ -51,9 +51,14 @@ dependencies {
     implementation("io.ktor:ktor-server-core:1.5.2")
     implementation("io.ktor:ktor-server-netty:1.5.2")
     implementation("io.ktor:ktor-serialization:1.5.2")
+    implementation("io.ktor:ktor-websockets:1.5.2")
 
     implementation("org.slf4j:slf4j-api:1.7.9")
     implementation("ch.qos.logback:logback-classic:1.2.3")
+
+    implementation("io.netty:netty-tcnative:2.0.40.Final")
+    implementation("io.netty:netty-tcnative-boringssl-static:2.0.40.Final")
+    implementation("io.netty:netty-tcnative-boringssl-static:2.0.40.Final:linux-x86_64")
 
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.1.0")
 }

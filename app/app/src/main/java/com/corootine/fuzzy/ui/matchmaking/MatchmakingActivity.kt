@@ -7,18 +7,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.corootine.fuzzy.domain.userId.provide.UserIdProvider.UserIdState
 import com.corootine.fuzzy.ui.theme.setFuzokuContent
@@ -43,12 +39,8 @@ class CreateGameActivity : ComponentActivity() {
 @ExperimentalComposeUiApi
 @Composable
 fun CreateGameScreen(viewModel: MatchmakingViewModel = viewModel()) {
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val userIdStateLifecycleAware = remember(viewModel.userIdStateFlow, lifecycleOwner) {
-        viewModel.userIdStateFlow.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-    }
-    val userIdState = userIdStateLifecycleAware.collectAsState(initial = UserIdState.Pending)
-    val enablePlayButton = viewModel.enableStart.collectAsState(false)
+    val userIdState = viewModel.userIdStateFlow.collectAsState(initial = UserIdState.Pending)
+    val enablePlayButton = viewModel.allowPlayFlow.collectAsState(initial = false)
 
     Column(
         modifier = Modifier
@@ -57,8 +49,8 @@ fun CreateGameScreen(viewModel: MatchmakingViewModel = viewModel()) {
         horizontalAlignment = CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(40.dp))
-        Text(text = "Give your friend this number", style = MaterialTheme.typography.h6)
-        Spacer(modifier = Modifier.heightIn(20.dp))
+        Text(text = "Give your friend this ID", style = MaterialTheme.typography.h6)
+        Spacer(modifier = Modifier.heightIn(10.dp))
         when (userIdState.value) {
             is UserIdState.Available ->
                 Text(
@@ -72,14 +64,9 @@ fun CreateGameScreen(viewModel: MatchmakingViewModel = viewModel()) {
             is UserIdState.Pending ->
                 CircularProgressIndicator(modifier = Modifier.size(24.dp))
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "enter their number below",
-            style = MaterialTheme.typography.h6,
-            textAlign = TextAlign.Center
-        )
-        Text(
-            text = "and play!",
+            text = "Enter their ID and play",
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center
         )
@@ -97,12 +84,10 @@ fun CreateGameScreen(viewModel: MatchmakingViewModel = viewModel()) {
                 .align(CenterHorizontally),
             shape = RoundedCornerShape(18.dp),
             enabled = enablePlayButton.value,
-            onClick = { },
+            onClick = { viewModel.onPlayClicked() },
         ) {
             Text(text = "PLAY")
         }
-
-
     }
 }
 

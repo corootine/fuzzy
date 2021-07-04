@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.network.di
+package com.corootine.fuzzy.core.network.di
 
 import android.content.Context
 import java.security.KeyStore
@@ -18,8 +18,8 @@ class TrustManagerFactory constructor(context: Context) {
     val sslSocketFactory: SSLSocketFactory
 
     init {
-        val trustedCertificates = loadTrustedCertificate(context)
-        val keyStoreWithTrustedCertificates = createKeyStoreWithCertificate(trustedCertificates)
+//        val trustedCertificates = loadTrustedCertificate(context)
+        val keyStoreWithTrustedCertificates = createKeyStoreWithCertificate()
 
         x509TrustManager = createTrustManager(keyStoreWithTrustedCertificates)
         sslSocketFactory = createSslSocketFactory(x509TrustManager)
@@ -31,10 +31,10 @@ class TrustManagerFactory constructor(context: Context) {
         return certificateFactory.generateCertificate(inputStream)
     }
 
-    private fun createKeyStoreWithCertificate(trustedCertificate: Certificate): KeyStore {
+    private fun createKeyStoreWithCertificate(): KeyStore {
         val keyStore: KeyStore = KeyStore.getInstance(KeyStore.getDefaultType())
         keyStore.load(null, KEYSTORE_PASSWORD.toCharArray())
-        keyStore.setCertificateEntry("certificate", trustedCertificate)
+//        keyStore.setCertificateEntry("certificate", trustedCertificate)
         return keyStore
     }
 

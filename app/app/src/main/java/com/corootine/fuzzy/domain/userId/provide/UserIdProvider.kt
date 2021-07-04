@@ -4,7 +4,7 @@ import com.corootine.fuzzy.domain.di.ApplicationScope
 import com.corootine.fuzzy.domain.di.IODispatcher
 import com.corootine.fuzzy.domain.userId.provide.RefreshUserIdController.Request
 import com.corootine.fuzzy.domain.userId.provide.UserIdProvider.UserIdState
-import com.corootine.fuzzy.network.retrofit.RequestExecutor
+import com.corootine.fuzzy.core.network.retrofit.RequestExecutor
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*

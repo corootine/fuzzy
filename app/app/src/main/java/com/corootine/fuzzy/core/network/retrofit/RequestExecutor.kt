@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.network.retrofit
+package com.corootine.fuzzy.core.network.retrofit
 
 interface RequestExecutor {
 

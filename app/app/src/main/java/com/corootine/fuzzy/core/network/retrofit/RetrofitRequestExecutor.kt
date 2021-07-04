@@ -1,4 +1,4 @@
-package com.corootine.fuzzy.network.retrofit
+package com.corootine.fuzzy.core.network.retrofit
 
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
@@ -11,7 +11,7 @@ class RetrofitRequestExecutor @Inject constructor() : RequestExecutor {
         try {
             return request()
         } catch (exception: Exception) {
-            logger.error("Request failed with an exception", exception)
+            logger.error("Request failed with an exception $exception")
             throw exception
         }
     }

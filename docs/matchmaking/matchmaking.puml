@@ -1,0 +1,19 @@
+@startuml
+autonumber 1
+title Matchmaking
+
+"Client A"->Server: initiateGameSession(ID_A, ID_B)
+alt if A already has an open session
+  Server->Server: closeSession(ID_A)
+  Server->"Client A": closeSession
+  Server->"Client B": closeSession
+end
+Server->Server: createSession(ID_A, ID_B)
+alt if B does not connect within set time period
+  Server->Server: closeSession(ID_A)
+  Server->"Client A": closeSession
+end
+
+"Client B"->Server: initiateGameSession(ID_B, ID_A)
+
+@enduml
