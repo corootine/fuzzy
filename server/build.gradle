@@ -6,14 +6,19 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"
+//        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.16'
+        classpath 'com.squareup.wire:wire-gradle-plugin:4.0.0-alpha.5'
     }
 }
 
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.4.31"
     id "org.jetbrains.kotlin.plugin.serialization" version "1.4.31"
+//    id 'com.google.protobuf' version '0.8.16'
     id "application"
 }
+
+apply plugin: 'com.squareup.wire'
 
 application {
     mainClassName "com.corootine.fuzzy.server.Server"
@@ -60,7 +65,53 @@ dependencies {
     implementation("io.netty:netty-tcnative-boringssl-static:2.0.40.Final")
     implementation("io.netty:netty-tcnative-boringssl-static:2.0.40.Final:linux-x86_64")
 
+    implementation("io.grpc:grpc-netty-shaded:1.39.0")
+    implementation("io.grpc:grpc-protobuf:1.39.0")
+    implementation("io.grpc:grpc-stub:1.39.0")
+
+    implementation "com.squareup.wire:wire-runtime:4.0.0-alpha.5"
+
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.1.0")
+
+    compileOnly "org.apache.tomcat:annotations-api:6.0.53"
+}
+//
+//protobuf {
+//    protoc {
+//        artifact = 'com.google.protobuf:protoc:3.0.0'
+//    }
+//    plugins {
+//        grpc { artifact = "io.grpc:protoc-gen-grpc-java:1.39.0" }
+//    }
+//    generateProtoTasks {
+//        all()*.plugins { grpc {} }
+//    }
+//}
+
+wire {
+    sourcePath {
+        srcDir 'src/main/proto'
+    }
+
+    kotlin {
+        rpcRole = 'server'
+        rpcCallStyle = 'blocking'
+        grpcServerCompatible = true
+        singleMethodServices = true
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += 'build/generated/source/proto/main/grpc'
+            srcDirs += 'build/generated/source/proto/main/java'
+        }
+        kotlin {
+            srcDirs += 'build/generated/source/proto/main/grpc'
+            srcDirs += 'build/generated/source/proto/main/java'
+        }
+    }
 }
 
 test {

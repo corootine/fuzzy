@@ -11,8 +11,6 @@ import io.ktor.http.cio.websocket.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
 import io.ktor.websocket.*
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -62,16 +60,16 @@ fun main() {
     val keyStoreFilePath = File(Thread.currentThread().contextClassLoader.getResource("test2.jks").file)
     val keyStore = KeyStore.getInstance(keyStoreFilePath, "123456".toCharArray())
 
-    embeddedServer(Netty, applicationEngineEnvironment {
-        sslConnector(
-            keyStore = keyStore,
-            keyAlias = "testkey",
-            keyStorePassword = { "123456".toCharArray() },
-            privateKeyPassword = { "123456".toCharArray() },
-        ) {
-            keyStorePath = keyStoreFilePath
-            port = 8443
-            module(Application::module)
-        }
-    }).start()
+//    embeddedServer(Netty, applicationEngineEnvironment {
+//        sslConnector(
+//            keyStore = keyStore,
+//            keyAlias = "testkey",
+//            keyStorePassword = { "123456".toCharArray() },
+//            privateKeyPassword = { "123456".toCharArray() },
+//        ) {
+//            keyStorePath = keyStoreFilePath
+//            port = 8443
+//            module(Application::module)
+//        }
+//    }).start()
 }
